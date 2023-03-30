@@ -1,0 +1,9 @@
+src
+.eslintrc.json
+tsconfig.json
+pnpm-lock.yaml
+pnpm-workspace.yaml
+.husky
+.lintstagedrc
+.prettierrc
+.turbo

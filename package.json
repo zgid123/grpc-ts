@@ -1,0 +1,48 @@
+{
+  "name": "grpc-ts",
+  "description": "gRPC for javascript",
+  "private": true,
+  "scripts": {
+    "prepare": "husky install",
+    "preinstall": "npx only-allow pnpm",
+    "clear-node-modules": "pnpm -r exec -- rm -rf node_modules",
+    "update-packages": "pnpm update -i -r --latest",
+    "build": "turbo run build"
+  },
+  "keywords": [
+    "grpc",
+    "grpc-ts",
+    "grpc-js",
+    "grpc-typescript",
+    "grpc-javascript",
+    "grpc-nodejs",
+    "grpc-nestjs",
+    "grpc-fastify"
+  ],
+  "author": "Alpha",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:zgid123/grpc-ts.git"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^24.0.1",
+    "@rollup/plugin-json": "^6.0.0",
+    "@rollup/plugin-node-resolve": "^15.0.1",
+    "@rollup/plugin-typescript": "^11.0.0",
+    "@typescript-eslint/eslint-plugin": "^5.57.0",
+    "@typescript-eslint/parser": "^5.57.0",
+    "eslint": "^8.37.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "husky": "^8.0.3",
+    "lint-staged": "^13.2.0",
+    "prettier": "^2.8.7",
+    "rollup": "^3.20.2",
+    "turbo": "^1.8.8",
+    "typescript": "^5.0.2"
+  },
+  "dependencies": {
+    "tslib": "^2.5.0"
+  }
+}
