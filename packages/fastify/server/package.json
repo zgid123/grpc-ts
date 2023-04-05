@@ -1,0 +1,52 @@
+{
+  "name": "@grpc-ts/fastify-server",
+  "version": "1.0.0",
+  "license": "MIT",
+  "directories": {
+    "lib": "lib"
+  },
+  "author": "Alpha",
+  "description": "Fastify package for server",
+  "homepage": "https://github.com/zgid123/grpc-ts",
+  "keywords": [
+    "grpc",
+    "grpc-ts",
+    "grpc-js",
+    "grpc-typescript",
+    "grpc-javascript",
+    "grpc-nodejs",
+    "grpc-fastify",
+    "grpc-server"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zgid123/grpc-ts"
+  },
+  "main": "./lib/index.cjs",
+  "module": "./lib/index.mjs",
+  "types": "./lib/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./lib/index.mjs",
+      "require": "./lib/index.cjs",
+      "types": "./lib/index.d.ts"
+    }
+  },
+  "scripts": {
+    "prepublish": "pnpm build",
+    "build": "rollup --config rollup.config.ts --configPlugin typescript && pnpm append-dts",
+    "append-dts": "cat src/index.d.ts >> lib/index.d.ts"
+  },
+  "dependencies": {
+    "@grpc-ts/core": "workspace:*",
+    "fastify-plugin": "^4.5.0"
+  },
+  "devDependencies": {
+    "@types/node": "^18.15.11",
+    "fastify": "^4.15.0",
+    "fastify-tsconfig": "^1.0.1"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

@@ -1,17 +1,17 @@
-Fastify's Plugin for gRPC Client.
+Fastify's Plugin for Server.
 
 # Install
 
 ```sh
-npm install --save @grpc-ts/fastify-client
+npm install --save @grpc-ts/fastify-server
 
 # or
 
-yarn add @grpc-ts/fastify-client
+yarn add @grpc-ts/fastify-server
 
 # or
 
-pnpm add @grpc-ts/fastify-client
+pnpm add @grpc-ts/fastify-server
 ```
 
 # Usage
@@ -47,14 +47,16 @@ In fastify
 ```ts
 import Fastify from 'fastify';
 import detect from 'detect-port';
-import FastifyGrpcClient, { createMetadata } from '@grpc-ts/fastify-client';
+import FastifyGrpcServer, {
+  dateToGrpcTimestamp,
+} from '@grpc-ts/fastify-server';
 
 const fastify = Fastify({
   logger: process.env.NODE_ENV === 'production' ? false : true,
 });
 
 async function bootstrap(): Promise<typeof fastify> {
-  fastify.register(FastifyGrpcClient, {
+  fastify.register(FastifyGrpcServer, {
     url: 'localhost:3010',
     package: [
       {
@@ -85,16 +87,18 @@ async function bootstrap(): Promise<typeof fastify> {
     port,
   });
 
-  const result = await fastify.grpcClient
-    .getService('ExampleService')
-    .sendMessage(
-      { message: 'hello', createdAt: dateToGrpcTimestamp(new Date()) },
-      createMetadata({
-        meta: 'test',
-      }),
-    );
-
-  console.log(result);
+  fastify.grpcServer
+    .getServer()
+    .addUnaryHandler('ExampleService', 'sendMessage', (request, metadata) => {
+      console.log(request);
+      console.log(metadata);
+      return {
+        message: {
+          message: 'hola',
+          createdAt: dateToGrpcTimestamp(new Date()),
+        },
+      };
+    });
 
   return fastify;
 }
@@ -104,5 +108,5 @@ bootstrap();
 
 # TODO
 
-- [ ] Support Client Streaming Call
+- [ ] Support Server Streaming Call
 - [ ] Support Bidi Streaming Call
