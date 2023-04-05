@@ -1,4 +1,4 @@
-import type { ServiceClient } from '@grpc-ts/core';
+import type { ServiceClient } from '@grpc.ts/core';
 
 interface IGetServiceOptionsProps {
   clientName?: string;

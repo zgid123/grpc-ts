@@ -3,7 +3,7 @@ import {
   createServer,
   type IServerProps,
   type IServerObjProps,
-} from '@grpc-ts/core';
+} from '@grpc.ts/core';
 
 import type { FastifyInstance, FastifyPluginAsync } from 'fastify';
 
@@ -16,7 +16,7 @@ export {
   createSecureContext,
   dateToGrpcTimestamp,
   grpcTimestampToDate,
-} from '@grpc-ts/core';
+} from '@grpc.ts/core';
 
 export interface IGrpcServerProps extends IServerProps {
   serverName?: string;
@@ -62,5 +62,5 @@ const grpcServer: FastifyPluginAsync<IGrpcServerProps> = async (
 
 export default fp(grpcServer, {
   fastify: '>=3',
-  name: '@grpc-ts/fastify-server',
+  name: '@grpc.ts/fastify-server',
 });

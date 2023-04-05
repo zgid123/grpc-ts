@@ -1,12 +1,12 @@
 {
-  "name": "@grpc-ts/core",
+  "name": "@grpc.ts/core",
   "version": "1.0.0",
   "license": "MIT",
   "directories": {
     "lib": "lib"
   },
   "author": "Alpha",
-  "description": "Core package for @grpc-ts",
+  "description": "Core package for @grpc.ts",
   "homepage": "https://github.com/zgid123/grpc-ts",
   "keywords": [
     "grpc",

@@ -3,15 +3,15 @@ Fastify's Plugin for Server.
 # Install
 
 ```sh
-npm install --save @grpc-ts/fastify-server
+npm install --save @grpc.ts/fastify-server
 
 # or
 
-yarn add @grpc-ts/fastify-server
+yarn add @grpc.ts/fastify-server
 
 # or
 
-pnpm add @grpc-ts/fastify-server
+pnpm add @grpc.ts/fastify-server
 ```
 
 # Usage
@@ -49,7 +49,7 @@ import Fastify from 'fastify';
 import detect from 'detect-port';
 import FastifyGrpcServer, {
   dateToGrpcTimestamp,
-} from '@grpc-ts/fastify-server';
+} from '@grpc.ts/fastify-server';
 
 const fastify = Fastify({
   logger: process.env.NODE_ENV === 'production' ? false : true,

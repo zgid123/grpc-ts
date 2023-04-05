@@ -1,5 +1,5 @@
 {
-  "name": "grpc-ts",
+  "name": "grpc.ts",
   "description": "gRPC for javascript",
   "private": true,
   "scripts": {

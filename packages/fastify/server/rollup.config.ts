@@ -7,7 +7,7 @@ import typescript from '@rollup/plugin-typescript';
 export default defineConfig({
   input: 'src/index.ts',
   plugins: [json(), resolve(), commonjs(), typescript()],
-  external: ['fastify-plugin', '@grpc-ts/core'],
+  external: ['fastify-plugin', '@grpc.ts/core'],
   output: [
     {
       file: './lib/index.cjs',

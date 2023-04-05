@@ -1,5 +1,5 @@
 {
-  "name": "@grpc-ts/fastify-server",
+  "name": "@grpc.ts/fastify-server",
   "version": "1.0.0",
   "license": "MIT",
   "directories": {
@@ -38,7 +38,7 @@
     "append-dts": "cat src/index.d.ts >> lib/index.d.ts"
   },
   "dependencies": {
-    "@grpc-ts/core": "workspace:*",
+    "@grpc.ts/core": "workspace:*",
     "fastify-plugin": "^4.5.0"
   },
   "devDependencies": {

@@ -3,11 +3,11 @@ A wrapper of [@grpc/grpc-js](https://github.com/grpc/grpc-node) for Node.JS.
 # Install
 
 ```sh
-npm install --save @grpc-ts/core
+npm install --save @grpc.ts/core
 
 # or
 
-yarn add @grpc-ts/core
+yarn add @grpc.ts/core
 
 # or
 
@@ -47,7 +47,7 @@ service ExampleService {
 ## Client Usage
 
 ```ts
-import { createClient } from '@grpc-ts/core';
+import { createClient } from '@grpc.ts/core';
 
 async function main(): Promise<void> {
   const client = await createClient({
@@ -83,7 +83,7 @@ main();
 ## Server Usage
 
 ```ts
-import { createServer, dateToGrpcTimestamp } from '@grpc-ts/core';
+import { createServer, dateToGrpcTimestamp } from '@grpc.ts/core';
 
 async function main(): Promise<void> {
   const serverObj = await createServer({

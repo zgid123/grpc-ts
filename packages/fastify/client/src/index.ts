@@ -3,7 +3,7 @@ import {
   createClient,
   type IClientProps,
   type IGrpcClientProps as IGrpcClientCoreProps,
-} from '@grpc-ts/core';
+} from '@grpc.ts/core';
 
 import type { FastifyInstance, FastifyPluginAsync } from 'fastify';
 
@@ -16,7 +16,7 @@ export {
   createSecureContext,
   dateToGrpcTimestamp,
   grpcTimestampToDate,
-} from '@grpc-ts/core';
+} from '@grpc.ts/core';
 
 export interface IGrpcClientProps extends IClientProps {
   clientName?: string;
@@ -69,5 +69,5 @@ const grpcClient: FastifyPluginAsync<IGrpcClientProps> = async (
 
 export default fp(grpcClient, {
   fastify: '>=3',
-  name: '@grpc-ts/fastify-client',
+  name: '@grpc.ts/fastify-client',
 });

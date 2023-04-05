@@ -3,15 +3,15 @@ Fastify's Plugin for gRPC Client.
 # Install
 
 ```sh
-npm install --save @grpc-ts/fastify-client
+npm install --save @grpc.ts/fastify-client
 
 # or
 
-yarn add @grpc-ts/fastify-client
+yarn add @grpc.ts/fastify-client
 
 # or
 
-pnpm add @grpc-ts/fastify-client
+pnpm add @grpc.ts/fastify-client
 ```
 
 # Usage
@@ -47,7 +47,7 @@ In fastify
 ```ts
 import Fastify from 'fastify';
 import detect from 'detect-port';
-import FastifyGrpcClient, { createMetadata } from '@grpc-ts/fastify-client';
+import FastifyGrpcClient, { createMetadata } from '@grpc.ts/fastify-client';
 
 const fastify = Fastify({
   logger: process.env.NODE_ENV === 'production' ? false : true,

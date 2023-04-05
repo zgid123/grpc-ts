@@ -1,8 +1,8 @@
 import detect from 'detect-port';
-import FastifyGrpcClient, { createMetadata } from '@grpc-ts/fastify-client';
+import FastifyGrpcClient, { createMetadata } from '@grpc.ts/fastify-client';
 import FastifyGrpcServer, {
   dateToGrpcTimestamp,
-} from '@grpc-ts/fastify-server';
+} from '@grpc.ts/fastify-server';
 
 import { fastify } from 'config/fastify';
 
