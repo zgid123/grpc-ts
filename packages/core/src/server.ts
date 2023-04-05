@@ -1,0 +1,98 @@
+import { promisify } from 'util';
+import {
+  Server,
+  ServerCredentials,
+  type Metadata,
+  type ServerUnaryCall,
+  type ServiceDefinition,
+} from '@grpc/grpc-js';
+
+import type { UnaryCallback } from '@grpc/grpc-js/build/src/client';
+
+import { loadPackage, convertChannelOptions } from './internalUtils';
+
+import type { IServerProps } from './interface';
+
+interface IAddUnaryHandlerOptionsProps {
+  package?: string;
+}
+
+type TUnaryHandlerFunc<TRequest = unknown, TResponse = unknown> = (
+  request: TRequest,
+  metadata: Metadata,
+  call: ServerUnaryCall<TRequest, TResponse>,
+) => TResponse;
+
+type TAddUnaryHandlerFunc = (
+  serviceName: string,
+  rpcName: string,
+  impl: TUnaryHandlerFunc,
+  options?: IAddUnaryHandlerOptionsProps,
+) => void;
+
+export interface IServerObjProps {
+  server: Server;
+  addUnaryHandler: TAddUnaryHandlerFunc;
+}
+
+export async function createServer({
+  url,
+  options = {},
+  credentials: creds,
+  package: packageInfo,
+  packageDefinitionOptions,
+}: IServerProps): Promise<IServerObjProps> {
+  const packageDefs = await loadPackage({
+    package: packageInfo,
+    packageDefinitionOptions,
+  });
+
+  const server = new Server(convertChannelOptions(options));
+  const bindAsync = promisify(server.bindAsync.bind(server));
+
+  await bindAsync(url, creds || ServerCredentials.createInsecure());
+
+  server.start();
+
+  const addUnaryHandler: TAddUnaryHandlerFunc = (
+    serviceName,
+    rpcName,
+    impl,
+    opts = {},
+  ) => {
+    const { package: packageName = '' } = opts;
+    const pkg = packageDefs[packageName];
+    const { service } = pkg?.[serviceName] || {};
+
+    if (!service) {
+      throw `Cannot find service ${serviceName}`;
+    }
+
+    const rpcNameUpper = rpcName[0].toUpperCase() + rpcName.substring(1);
+
+    if (
+      !Object.prototype.hasOwnProperty.call(service, rpcName) &&
+      !Object.prototype.hasOwnProperty.call(service, rpcNameUpper)
+    ) {
+      throw `${serviceName} service does not have ${rpcName} rpc method`;
+    }
+
+    const implFunc = async (
+      call: ServerUnaryCall<any, any>,
+      callback: UnaryCallback<any>,
+    ) => {
+      const result = await impl(call.request, call.metadata, call);
+      callback(null, result);
+    };
+
+    server.addService(service as unknown as ServiceDefinition, {
+      [rpcName]: implFunc,
+      [rpcNameUpper]: implFunc,
+    });
+  };
+
+  return {
+    server,
+    addUnaryHandler,
+  };
+}
