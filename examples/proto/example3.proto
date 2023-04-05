@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+
+message Message {
+  string message = 1;
+  google.protobuf.Timestamp created_at = 2;
+}
+
+message SendMessageRequest {
+  string message = 1;
+  google.protobuf.Timestamp created_at = 2;
+}
+
+message GetMessageResponse { Message message = 1; }
+
+service ExampleService {
+  rpc SendMessage(SendMessageRequest) returns (GetMessageResponse);
+}

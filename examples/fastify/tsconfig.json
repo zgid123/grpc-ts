@@ -1,0 +1,25 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": "src",
+    "declaration": true,
+    "emitDecoratorMetadata": true,
+    "incremental": true,
+    "module": "esnext",
+    "noEmit": false,
+    "noFallthroughCasesInSwitch": false,
+    "noImplicitAny": false,
+    "outDir": "dist",
+    "sourceMap": true,
+    "strictBindCallApply": false,
+    "strictNullChecks": false
+  },
+  "include": [
+    "src"
+  ],
+  "exclude": [
+    "dist",
+    "node_modules"
+  ]
+}
