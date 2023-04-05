@@ -3,6 +3,7 @@ gRPC Library for Javascript project.
 # Usage
 
 - [core](packages/core/README.md)
+- [fastify-client](packages/fastify/client/README.md)
 
 # TODO
 
