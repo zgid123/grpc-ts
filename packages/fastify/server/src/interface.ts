@@ -1,3 +1,3 @@
-import type { IServerObjProps } from '@grpc.ts/core';
+import type { IServerWrapperProps } from '@grpc.ts/core';
 
-export type TGetServerFunc = (serverName?: string) => IServerObjProps;
+export type TGetServerFunc = (serverName?: string) => IServerWrapperProps;

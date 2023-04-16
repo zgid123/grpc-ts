@@ -1,0 +1,26 @@
+{
+  "name": "@grpc.ts/server-commons",
+  "version": "1.0.0",
+  "license": "MIT",
+  "directories": {
+    "lib": "lib"
+  },
+  "author": "Alpha",
+  "description": "Common helpers for gRPC Server projects",
+  "main": "./lib/index.cjs",
+  "module": "./lib/index.mjs",
+  "types": "./lib/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./lib/index.mjs",
+      "require": "./lib/index.cjs",
+      "types": "./lib/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "rollup --config rollup.config.ts --configPlugin typescript"
+  },
+  "dependencies": {
+    "@grpc.ts/core": "workspace:*"
+  }
+}

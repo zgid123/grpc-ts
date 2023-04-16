@@ -1,6 +1,12 @@
 import type { Options } from '@grpc/proto-loader';
 import type { ServiceClient } from '@grpc/grpc-js/build/src/make-client';
-import type { ChannelCredentials, ServerCredentials } from '@grpc/grpc-js';
+import type {
+  Server,
+  Metadata,
+  ServerUnaryCall,
+  ServerCredentials,
+  ChannelCredentials,
+} from '@grpc/grpc-js';
 
 export type TCompressionAlgorithms = 'identity' | 'deflate' | 'gzip';
 
@@ -58,4 +64,61 @@ export interface IClientsProps {
   [key: string]: {
     [key: string]: ServiceClient;
   };
+}
+
+export interface IAddUnaryHandlerOptionsProps {
+  package?: string;
+}
+
+type TUnaryHandlerFunc<TRequest = unknown, TResponse = unknown> = (
+  request: TRequest,
+  metadata: Metadata,
+  call: ServerUnaryCall<TRequest, TResponse>,
+) => TResponse;
+
+export type TAddUnaryHandlerFunc = (
+  serviceName: string,
+  rpcName: string,
+  impl: TUnaryHandlerFunc,
+  options?: IAddUnaryHandlerOptionsProps,
+) => void;
+
+export interface IServerWrapperProps {
+  server: Server;
+  addUnaryHandler: TAddUnaryHandlerFunc;
+}
+
+interface IGetServiceOptionsProps {
+  packageName?: string;
+}
+
+export type TGetServiceFunc = <T extends ServiceClient = ServiceClient>(
+  serviceName: string,
+  options?: IGetServiceOptionsProps,
+) => T | undefined;
+
+export interface IGrpcClientWrapperProps {
+  close: () => void;
+  getService: TGetServiceFunc;
+  getPackages: () => IClientsProps;
+}
+
+// internal type for internal packages
+
+// server
+export interface IGrpcServerProps extends IServerProps {
+  serverName?: string;
+}
+
+export interface IGrpcServerListProps {
+  [key: string]: IServerWrapperProps;
+}
+
+// client
+export interface IGrpcClientProps extends IClientProps {
+  clientName?: string;
+}
+
+export interface IGrpcClientListProps {
+  [key: string]: IGrpcClientWrapperProps;
 }

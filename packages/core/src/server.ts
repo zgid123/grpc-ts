@@ -2,7 +2,6 @@ import { promisify } from 'util';
 import {
   Server,
   ServerCredentials,
-  type Metadata,
   type ServerUnaryCall,
   type ServiceDefinition,
 } from '@grpc/grpc-js';
@@ -11,29 +10,13 @@ import type { UnaryCallback } from '@grpc/grpc-js/build/src/client';
 
 import { loadPackage, convertChannelOptions } from './internalUtils';
 
-import type { IServerProps } from './interface';
+import type {
+  IServerProps,
+  IServerWrapperProps,
+  TAddUnaryHandlerFunc,
+} from './interface';
 
-interface IAddUnaryHandlerOptionsProps {
-  package?: string;
-}
-
-type TUnaryHandlerFunc<TRequest = unknown, TResponse = unknown> = (
-  request: TRequest,
-  metadata: Metadata,
-  call: ServerUnaryCall<TRequest, TResponse>,
-) => TResponse;
-
-type TAddUnaryHandlerFunc = (
-  serviceName: string,
-  rpcName: string,
-  impl: TUnaryHandlerFunc,
-  options?: IAddUnaryHandlerOptionsProps,
-) => void;
-
-export interface IServerObjProps {
-  server: Server;
-  addUnaryHandler: TAddUnaryHandlerFunc;
-}
+const serviceMethodTracking: Record<string, boolean> = {};
 
 export async function createServer({
   url,
@@ -41,7 +24,7 @@ export async function createServer({
   credentials: creds,
   package: packageInfo,
   packageDefinitionOptions,
-}: IServerProps): Promise<IServerObjProps> {
+}: IServerProps): Promise<IServerWrapperProps> {
   const packageDefs = await loadPackage({
     package: packageInfo,
     packageDefinitionOptions,
@@ -61,11 +44,20 @@ export async function createServer({
     opts = {},
   ) => {
     const { package: packageName = '' } = opts;
+
     const pkg = packageDefs[packageName];
     const { service } = pkg?.[serviceName] || {};
 
     if (!service) {
       throw `Cannot find service ${serviceName}`;
+    }
+
+    const key = `${packageName}::${serviceName}::${rpcName}`;
+
+    if (serviceMethodTracking[key]) {
+      return;
+    } else {
+      serviceMethodTracking[key] = true;
     }
 
     const rpcNameUpper = rpcName[0].toUpperCase() + rpcName.substring(1);

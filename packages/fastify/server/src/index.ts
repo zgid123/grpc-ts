@@ -1,11 +1,11 @@
 import fp from 'fastify-plugin';
-import {
-  createServer,
-  type IServerProps,
-  type IServerObjProps,
-} from '@grpc.ts/core';
+import { createServers } from '@grpc.ts/server-commons';
 
 import type { FastifyInstance, FastifyPluginAsync } from 'fastify';
+import type {
+  IGrpcServerProps,
+  IGrpcServerListProps,
+} from '@grpc.ts/core/lib/interface';
 
 import type { TGetServerFunc } from './interface';
 
@@ -18,14 +18,6 @@ export {
   grpcTimestampToDate,
 } from '@grpc.ts/core';
 
-export interface IGrpcServerProps extends IServerProps {
-  serverName?: string;
-}
-
-interface IGrpcServerListProps {
-  [key: string]: IServerObjProps;
-}
-
 let grpcServerList: IGrpcServerListProps = {};
 
 const getServer: TGetServerFunc = (serverName = '') => {
@@ -34,29 +26,27 @@ const getServer: TGetServerFunc = (serverName = '') => {
 
 const grpcServer: FastifyPluginAsync<IGrpcServerProps> = async (
   fastify: FastifyInstance,
-  { serverName = '', ...opt }: IGrpcServerProps,
+  options: IGrpcServerProps | IGrpcServerProps[],
 ) => {
-  if (!opt) {
-    throw 'Must provide option';
-  }
-
   if (!fastify.hasDecorator('grpcServer')) {
     fastify.decorate('grpcServer', {
       getServer,
     });
   }
 
-  const serverObj = await createServer(opt);
+  const list = await createServers(options);
 
   grpcServerList = {
     ...grpcServerList,
-    [serverName]: serverObj,
+    ...list,
   };
 
   fastify.addHook('onClose', onClose);
 
   function onClose() {
-    serverObj.server.forceShutdown();
+    Object.values(grpcServerList).forEach((grpcServer) => {
+      grpcServer.server.forceShutdown();
+    });
   }
 };
 

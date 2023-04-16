@@ -1,23 +1,12 @@
 import { credentials } from '@grpc/grpc-js';
 
-import type { ServiceClient } from '@grpc/grpc-js/build/src/make-client';
-
 import { loadPackage, makeServiceClients } from './internalUtils';
 
-import type { IClientProps } from './interface';
-
-interface IGetServiceOptionsProps {
-  packageName?: string;
-}
-
-type TGetServiceFunc = <T extends ServiceClient = ServiceClient>(
-  serviceName: string,
-  options?: IGetServiceOptionsProps,
-) => T | undefined;
-
-export interface IGrpcClientProps {
-  getService: TGetServiceFunc;
-}
+import type {
+  IClientProps,
+  TGetServiceFunc,
+  IGrpcClientWrapperProps,
+} from './interface';
 
 export async function createClient({
   url,
@@ -25,7 +14,7 @@ export async function createClient({
   credentials: creds,
   package: packageInfo,
   packageDefinitionOptions,
-}: IClientProps): Promise<IGrpcClientProps> {
+}: IClientProps): Promise<IGrpcClientWrapperProps> {
   const packageDefs = await loadPackage({
     package: packageInfo,
     packageDefinitionOptions,
@@ -44,7 +33,21 @@ export async function createClient({
     return clients[packageName]?.[serviceName] as any; // TODO: fix type
   };
 
+  const close = () => {
+    Object.values(clients).forEach((client) => {
+      Object.values(client).forEach((sc) => {
+        sc.close();
+      });
+    });
+  };
+
+  const getPackages: IGrpcClientWrapperProps['getPackages'] = () => {
+    return clients;
+  };
+
   return {
+    close,
     getService,
+    getPackages,
   };
 }

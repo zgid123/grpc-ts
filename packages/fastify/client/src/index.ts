@@ -1,11 +1,11 @@
 import fp from 'fastify-plugin';
-import {
-  createClient,
-  type IClientProps,
-  type IGrpcClientProps as IGrpcClientCoreProps,
-} from '@grpc.ts/core';
+import { createClients } from '@grpc.ts/client-commons';
 
-import type { FastifyInstance, FastifyPluginAsync } from 'fastify';
+import type { FastifyPluginAsync } from 'fastify';
+import type {
+  IGrpcClientProps,
+  IGrpcClientListProps,
+} from '@grpc.ts/core/lib/interface';
 
 import type { TGetServiceFunc } from './interface';
 
@@ -18,14 +18,6 @@ export {
   grpcTimestampToDate,
 } from '@grpc.ts/core';
 
-export interface IGrpcClientProps extends IClientProps {
-  clientName?: string;
-}
-
-interface IGrpcClientListProps {
-  [key: string]: IGrpcClientCoreProps;
-}
-
 let grpcClientList: IGrpcClientListProps = {};
 
 const getService: TGetServiceFunc = (serviceName, options = {}) => {
@@ -37,32 +29,27 @@ const getService: TGetServiceFunc = (serviceName, options = {}) => {
   });
 };
 
-const grpcClient: FastifyPluginAsync<IGrpcClientProps> = async (
-  fastify: FastifyInstance,
-  { clientName = '', ...opt }: IGrpcClientProps,
-) => {
-  if (!opt) {
-    throw 'Must provide option';
-  }
-
+const grpcClient: FastifyPluginAsync<
+  IGrpcClientProps | IGrpcClientProps[]
+> = async (fastify, options) => {
   if (!fastify.hasDecorator('grpcClient')) {
     fastify.decorate('grpcClient', {
       getService,
     });
   }
 
-  const client = await createClient(opt);
+  const list = await createClients(options);
 
   grpcClientList = {
     ...grpcClientList,
-    [clientName]: client,
+    ...list,
   };
 
   fastify.addHook('onClose', onClose);
 
   function onClose() {
-    Object.values(client).forEach((service) => {
-      service.close();
+    Object.values(grpcClientList).forEach((wrapper) => {
+      wrapper.close();
     });
   }
 };

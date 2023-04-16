@@ -11,7 +11,7 @@ yarn add @grpc.ts/core
 
 # or
 
-pnpm add @gprc-ts/core
+pnpm add @grpc.ts/core
 ```
 
 # Usage

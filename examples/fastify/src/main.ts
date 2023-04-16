@@ -59,6 +59,21 @@ async function bootstrap(): Promise<typeof fastify> {
     },
   });
 
+  fastify.get('/', async (_request, reply) => {
+    const result = await fastify.grpcClient
+      .getService('ExampleService')
+      .sendMessage(
+        { message: 'hello', createdAt: dateToGrpcTimestamp(new Date()) },
+        createMetadata({
+          meta: 'test',
+        }),
+      );
+
+    console.log(result);
+
+    reply.send('Ok!');
+  });
+
   const port = await detect(3_000);
   await fastify.listen({
     port,
@@ -76,16 +91,6 @@ async function bootstrap(): Promise<typeof fastify> {
         },
       };
     });
-
-  const result = await fastify.grpcClient
-    .getService('ExampleService')
-    .sendMessage(
-      { message: 'hello', createdAt: dateToGrpcTimestamp(new Date()) },
-      createMetadata({
-        meta: 'test',
-      }),
-    );
-  console.log(result);
 
   return fastify;
 }
