@@ -1,0 +1,46 @@
+{
+  "name": "@grpc.ts/nestjs-client",
+  "version": "1.0.0",
+  "license": "MIT",
+  "directories": {
+    "lib": "lib"
+  },
+  "author": "Alpha",
+  "description": "NestJS package for client",
+  "homepage": "https://github.com/zgid123/grpc-ts",
+  "keywords": [
+    "grpc",
+    "grpc-ts",
+    "grpc-js",
+    "grpc-typescript",
+    "grpc-javascript",
+    "grpc-nodejs",
+    "grpc-nestjs",
+    "grpc-client"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zgid123/grpc-ts"
+  },
+  "main": "./lib/index.cjs",
+  "module": "./lib/index.mjs",
+  "types": "./lib/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./lib/index.mjs",
+      "require": "./lib/index.cjs",
+      "types": "./lib/index.d.ts"
+    }
+  },
+  "scripts": {
+    "prepublish": "pnpm build",
+    "build": "rollup --config rollup.config.ts --configPlugin typescript"
+  },
+  "dependencies": {
+    "@grpc.ts/core": "workspace:*",
+    "@nestjs/common": "^9.4.0"
+  },
+  "devDependencies": {
+    "@grpc.ts/client-commons": "workspace:*"
+  }
+}
