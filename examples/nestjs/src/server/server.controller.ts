@@ -3,9 +3,13 @@ import {
   GrpcUnaryMethod,
   dateToGrpcTimestamp,
   type Metadata,
-  type Timestamp,
   type ServerUnaryCall,
 } from '@grpc.ts/nestjs-server';
+
+import type {
+  IGetMessageResponse,
+  ISendMessageRequest,
+} from '../../protobufTypings/example3.interface';
 
 @Controller()
 export class ServerController {
@@ -13,15 +17,10 @@ export class ServerController {
     serviceName: 'ExampleService',
   })
   public async sendMessage(
-    request: unknown,
+    request: ISendMessageRequest,
     metadata: Metadata,
     call: ServerUnaryCall<unknown, unknown>,
-  ): Promise<{
-    message: {
-      message: string;
-      createdAt: Timestamp.AsObject;
-    };
-  }> {
+  ): Promise<IGetMessageResponse> {
     console.log('request', request);
     console.log('metadata', metadata);
     console.log('call', call);

@@ -11,6 +11,7 @@ export * from './utils';
 export type {
   IClientProps,
   IServerProps,
+  TUnaryHandlerFunc,
   IServerWrapperProps,
   TAddUnaryHandlerFunc,
   IAddUnaryHandlerOptionsProps,

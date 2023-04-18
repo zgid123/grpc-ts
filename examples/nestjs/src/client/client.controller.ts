@@ -6,20 +6,25 @@ import {
   dateToGrpcTimestamp,
 } from '@grpc.ts/nestjs-client';
 
+import { IExampleService } from '../../protobufTypings/example3.interface';
+
 @Controller('/client')
 export class ClientController {
   constructor(
     @GrpcService({
       serviceName: 'ExampleService',
     })
-    private readonly exampleService: any,
+    private readonly exampleService: IExampleService,
   ) {}
 
   @Get()
   public async sendMessage(): Promise<string> {
     this.exampleService
       .sendMessage(
-        { message: 'hello', createdAt: dateToGrpcTimestamp(new Date()) },
+        {
+          message: 'hello',
+          createdAt: dateToGrpcTimestamp(new Date()),
+        },
         createMetadata({
           meta: 'test',
         }),

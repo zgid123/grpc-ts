@@ -6,6 +6,11 @@ import FastifyGrpcServer, {
 
 import { fastify } from 'config/fastify';
 
+import type {
+  IExampleService,
+  ISendMessageRequest,
+} from './protobufTypings/example3.interface';
+
 async function bootstrap(): Promise<typeof fastify> {
   fastify.register(FastifyGrpcServer, {
     url: 'localhost:3010',
@@ -61,9 +66,12 @@ async function bootstrap(): Promise<typeof fastify> {
 
   fastify.get('/', async (_request, reply) => {
     const result = await fastify.grpcClient
-      .getService('ExampleService')
+      .getService<IExampleService>('ExampleService')
       .sendMessage(
-        { message: 'hello', createdAt: dateToGrpcTimestamp(new Date()) },
+        {
+          message: 'hello',
+          createdAt: dateToGrpcTimestamp(new Date()),
+        },
         createMetadata({
           meta: 'test',
         }),
@@ -81,16 +89,21 @@ async function bootstrap(): Promise<typeof fastify> {
 
   fastify.grpcServer
     .getServer()
-    .addUnaryHandler('ExampleService', 'sendMessage', (request, metadata) => {
-      console.log(request);
-      console.log(metadata);
-      return {
-        message: {
-          message: 'hola',
-          createdAt: dateToGrpcTimestamp(new Date()),
-        },
-      };
-    });
+    .addUnaryHandler<ISendMessageRequest>(
+      'ExampleService',
+      'sendMessage',
+      (request, metadata) => {
+        console.log(request);
+        console.log(metadata);
+
+        return {
+          message: {
+            message: 'hola',
+            createdAt: dateToGrpcTimestamp(new Date()),
+          },
+        };
+      },
+    );
 
   return fastify;
 }

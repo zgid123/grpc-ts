@@ -8,7 +8,8 @@
   "scripts": {
     "build": "nest build",
     "dev": "nest start --watch",
-    "start:prod": "node dist/main"
+    "start:prod": "node dist/main",
+    "gen-type": "gen-grpc-typing"
   },
   "dependencies": {
     "@grpc.ts/nestjs-client": "workspace:*",
@@ -22,6 +23,7 @@
     "rxjs": "^7.8.0"
   },
   "devDependencies": {
+    "@grpc.ts/cli": "workspace:*",
     "@nestjs/cli": "^9.4.0",
     "@nestjs/schematics": "^9.1.0",
     "@types/detect-port": "^1.3.2",

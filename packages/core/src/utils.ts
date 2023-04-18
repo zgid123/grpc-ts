@@ -1,7 +1,7 @@
 import { Metadata, type MetadataValue } from '@grpc/grpc-js';
 import { Timestamp } from 'google-protobuf/google/protobuf/timestamp_pb';
 
-import type { GrpcTimestamp } from './dataType';
+import { GrpcTimestamp } from './dataType';
 
 function isDate(data: Date | string | number): data is Date {
   return data instanceof Date;
@@ -21,17 +21,33 @@ export function createMetadata(
 
 export function dateToGrpcTimestamp(
   data: Date | string | number,
-): Timestamp.AsObject {
+): GrpcTimestamp {
   if (!isDate(data)) {
     data = new Date(data);
   }
 
-  return Timestamp.fromDate(data).toObject();
+  const { nanos, seconds } = Timestamp.fromDate(data).toObject();
+  const timestamp = new GrpcTimestamp();
+  timestamp.nanos = nanos;
+  timestamp.seconds = {
+    height: 0,
+    low: seconds,
+    unsigned: false,
+  };
+
+  return timestamp;
 }
 
 export function grpcTimestampToDate(data: GrpcTimestamp): Date {
+  let low: number;
   const { nanos, seconds } = data;
-  const { low } = seconds || {};
+
+  if (typeof seconds === 'string' || typeof seconds === 'number') {
+    low = parseInt(seconds, 10);
+  } else {
+    low = (seconds || {}).low;
+  }
+
   const timestamp = new Timestamp();
 
   timestamp.setNanos(nanos);

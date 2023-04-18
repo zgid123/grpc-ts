@@ -70,22 +70,22 @@ export interface IAddUnaryHandlerOptionsProps {
   package?: string;
 }
 
-type TUnaryHandlerFunc<TRequest = unknown, TResponse = unknown> = (
+export type TUnaryHandlerFunc<TRequest = unknown, TResponse = unknown> = (
   request: TRequest,
   metadata: Metadata,
   call: ServerUnaryCall<TRequest, TResponse>,
 ) => TResponse;
 
-export type TAddUnaryHandlerFunc = (
+export type TAddUnaryHandlerFunc<TRequest = unknown> = (
   serviceName: string,
   rpcName: string,
-  impl: TUnaryHandlerFunc,
+  impl: TUnaryHandlerFunc<TRequest>,
   options?: IAddUnaryHandlerOptionsProps,
 ) => void;
 
-export interface IServerWrapperProps {
+export interface IServerWrapperProps<TRequest = unknown> {
   server: Server;
-  addUnaryHandler: TAddUnaryHandlerFunc;
+  addUnaryHandler: TAddUnaryHandlerFunc<TRequest>;
 }
 
 interface IGetServiceOptionsProps {

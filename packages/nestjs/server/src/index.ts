@@ -1,6 +1,8 @@
 export {
   Metadata,
+  GrpcTimestamp,
   createMetadata,
+  createSecureContext,
   grpcTimestampToDate,
   dateToGrpcTimestamp,
   type Timestamp,
