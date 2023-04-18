@@ -1,0 +1,52 @@
+{
+  "name": "@grpc.ts/cli",
+  "version": "1.0.0",
+  "license": "MIT",
+  "directories": {
+    "lib": "lib"
+  },
+  "author": "Alpha",
+  "description": "CLI package for @grpc.ts to generate typing for TypeScript",
+  "homepage": "https://github.com/zgid123/grpc-ts",
+  "keywords": [
+    "grpc",
+    "grpc-ts",
+    "grpc-js",
+    "grpc-typescript",
+    "grpc-javascript",
+    "grpc-cli"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zgid123/grpc-ts"
+  },
+  "bin": {
+    "gen-grpc-typing": "lib/run.cjs"
+  },
+  "main": "./lib/index.cjs",
+  "module": "./lib/index.mjs",
+  "types": "./lib/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./lib/index.mjs",
+      "require": "./lib/index.cjs",
+      "types": "./lib/index.d.ts"
+    }
+  },
+  "scripts": {
+    "prepublish": "pnpm build",
+    "build": "rollup --config rollup.config.ts --configPlugin typescript"
+  },
+  "dependencies": {
+    "@grpc.ts/core": "workspace:*",
+    "glob": "^10.2.1",
+    "prettier": "^2.8.7",
+    "protobufjs": "^7.2.3",
+    "ts-node": "^10.9.1"
+  },
+  "devDependencies": {
+    "@types/glob": "^8.1.0",
+    "@types/node": "^18.15.11",
+    "@types/prettier": "^2.7.2"
+  }
+}

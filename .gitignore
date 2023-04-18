@@ -19,3 +19,9 @@ yarn-error.log*
 lib
 .turbo
 dist
+
+debug
+target
+**/*.rs.bk
+*.pdb
+Cargo.lock

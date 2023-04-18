@@ -4,5 +4,8 @@
   },
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[rust]": {
+    "editor.defaultFoldingRangeProvider": "rust-lang.rust-analyzer"
   }
 }

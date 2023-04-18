@@ -3,9 +3,13 @@ gRPC Library for Javascript project.
 # Usage
 
 - [core](packages/core/README.md)
+
+- [cli](packages/cli/README.md)
+
 - [fastify-client](packages/fastify/client/README.md)
+
 - [fastify-server](packages/fastify/server/README.md)
 
-# TODO
+- [nestjs-client](packages/nestjs/client/README.md)
 
-- [ ] Write CLI to generate type for TypeScript based on proto files
+- [nestjs-server](packages/nestjs/server/README.md)
