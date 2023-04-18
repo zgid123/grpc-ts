@@ -1,8 +1,5 @@
-import type {
-  Metadata,
-  GrpcTimestamp,
-  ServiceClient,
-} from '@grpc.ts/cli/node_modules/@grpc.ts/core';
+/* eslint-disable @typescript-eslint/ban-types */
+import type { Metadata, GrpcTimestamp, ServiceClient } from '@grpc.ts/core';
 
 export interface IMessage {
   message: string;
@@ -25,6 +22,14 @@ export interface IExampleService extends ServiceClient {
   ): Promise<IGetMessageResponse>;
   sendMessage(
     params: ISendMessageRequest,
+    metadata?: Metadata,
+  ): Promise<IGetMessageResponse>;
+  SendEmptyMessage(
+    params: {},
+    metadata?: Metadata,
+  ): Promise<IGetMessageResponse>;
+  sendEmptyMessage(
+    params: {},
     metadata?: Metadata,
   ): Promise<IGetMessageResponse>;
 }

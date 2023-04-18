@@ -26,6 +26,15 @@ export function convertTypeScriptType(type: string): string {
   }
 }
 
+export function convertTypeScriptRequestType(requestType: string): string {
+  switch (requestType) {
+    case 'google.protobuf.Empty':
+      return '{}';
+    default:
+      return `I${requestType}`;
+  }
+}
+
 export function camelize(str: string): string {
   return str?.replace(/^([A-Z])|[\s-_/]+(\w)/g, (_match, p1, p2) => {
     if (p2) {

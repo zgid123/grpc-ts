@@ -1,8 +1,4 @@
-import type {
-  Metadata,
-  GrpcTimestamp,
-  ServiceClient,
-} from '@grpc.ts/cli/node_modules/@grpc.ts/core';
+import type { Metadata, GrpcTimestamp, ServiceClient } from '@grpc.ts/core';
 
 export const PACKAGE_NAME = 'example.v1';
 

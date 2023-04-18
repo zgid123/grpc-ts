@@ -1,11 +1,9 @@
-import { cwd } from 'node:process';
-import { readFile } from 'node:fs/promises';
-
 import {
   combine,
   camelize,
   lowerFirstChar,
   convertTypeScriptType,
+  convertTypeScriptRequestType,
 } from './formatter';
 
 import type {
@@ -16,6 +14,7 @@ import type {
 } from '../interface';
 
 interface ICreateImportTypeOptionsProps {
+  hasBanType: boolean;
   hasService: boolean;
   hasMetadata: boolean;
   hasGrpcTimestamp: boolean;
@@ -23,34 +22,38 @@ interface ICreateImportTypeOptionsProps {
 
 export async function createImportType(
   content: string,
-  { hasService, hasMetadata, hasGrpcTimestamp }: ICreateImportTypeOptionsProps,
+  {
+    hasBanType,
+    hasService,
+    hasMetadata,
+    hasGrpcTimestamp,
+  }: ICreateImportTypeOptionsProps,
 ): Promise<string> {
-  const pkg = JSON.parse(await readFile(`${cwd()}/package.json`, 'utf8'));
-
-  const { dependencies } = pkg;
-  let packageName: string = '@grpc.ts/cli/node_modules/@grpc.ts/core';
-
-  if (dependencies['@grpc.ts/core']) {
-    packageName = '@grpc.ts/core';
-  }
+  const packageName = '@grpc.ts/core';
 
   return combine(
     {
-      joinWith: ' ',
+      joinWith: '\n',
     },
-    'import type {',
+    hasBanType ? '/* eslint-disable @typescript-eslint/ban-types */' : '',
     combine(
       {
-        joinWith: ', ',
+        joinWith: ' ',
       },
-      hasMetadata ? 'Metadata' : '',
-      hasGrpcTimestamp ? 'GrpcTimestamp' : '',
-      hasService ? 'ServiceClient' : '',
+      'import type {',
+      combine(
+        {
+          joinWith: ', ',
+        },
+        hasMetadata ? 'Metadata' : '',
+        hasGrpcTimestamp ? 'GrpcTimestamp' : '',
+        hasService ? 'ServiceClient' : '',
+      ),
+      '} from',
+      `'${packageName}'`,
+      '\n\n',
+      content,
     ),
-    '} from',
-    `'${packageName}'`,
-    '\n\n',
-    content,
   );
 }
 
@@ -65,7 +68,7 @@ export function createExportPackageName(packageName: string): string {
 export function createExportEnums(
   enums: TNamespaceEnum[],
 ): [string, ICachedEnumsProps] {
-  let content: string = '';
+  let content = '';
   const cachedEnums: ICachedEnumsProps = {};
 
   enums.forEach((enu) => {
@@ -139,15 +142,23 @@ export function createExportMessages(
   return [content, hasGrpcTimestamp];
 }
 
-export function createExportServices(services: TNamespaceService[]): string {
+export function createExportServices(
+  services: TNamespaceService[],
+): [string, boolean] {
   let content = '';
+  let hasBanType = false;
 
   services.forEach((service) => {
     const [serviceName, methods] = service;
 
     const methodsAsString = methods.reduce(
       (result, { name, requestType, responseType }) => {
-        const paramsAndResponse = `(params: I${requestType}, metadata?: Metadata): Promise<I${responseType}>;`;
+        const tsType = convertTypeScriptRequestType(requestType);
+        const paramsAndResponse = `(params: ${tsType}, metadata?: Metadata): Promise<I${responseType}>;`;
+
+        if (tsType === '{}') {
+          hasBanType = true;
+        }
 
         result += `${name}${paramsAndResponse}\n`;
         result += `${
@@ -166,5 +177,5 @@ export function createExportServices(services: TNamespaceService[]): string {
     `;
   });
 
-  return content;
+  return [content, hasBanType];
 }

@@ -40,6 +40,7 @@ async function generate() {
       let hasMetadata = false;
       let hasGrpcTimestamp = false;
       let hasService = false;
+      let hasBanType = false;
 
       result.forEach(([_, packageData]) => {
         const [enumsContent, cachedEnums] = createExportEnums(
@@ -60,7 +61,13 @@ async function generate() {
           hasMetadata = true;
         }
 
-        const servicesContent = createExportServices(packageData.services);
+        const [servicesContent, containsBanType] = createExportServices(
+          packageData.services,
+        );
+
+        if (containsBanType) {
+          hasBanType = containsBanType;
+        }
 
         fileContent = combine(
           {
@@ -80,6 +87,7 @@ async function generate() {
 
       fileContent = await createImportType(fileContent, {
         hasService,
+        hasBanType,
         hasMetadata,
         hasGrpcTimestamp,
       });

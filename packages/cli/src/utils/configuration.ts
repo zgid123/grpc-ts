@@ -19,6 +19,7 @@ export async function loadConfig(): Promise<Required<IConfigProps>> {
   let data: IConfigProps = {};
 
   try {
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
     data = require(path).default;
   } catch {
     // ignore error

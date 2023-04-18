@@ -24,6 +24,7 @@
   },
   "devDependencies": {
     "@grpc.ts/cli": "workspace:*",
+    "@grpc.ts/core": "workspace:^",
     "@nestjs/cli": "^9.4.0",
     "@nestjs/schematics": "^9.1.0",
     "@types/detect-port": "^1.3.2",

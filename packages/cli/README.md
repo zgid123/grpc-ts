@@ -5,15 +5,15 @@ This package is for supporting `@grpc.ts` packages.
 # Install
 
 ```sh
-npm install --save-dev @grpc.ts/cli
+npm install --save-dev @grpc.ts/cli @grpc.ts/core
 
 # or
 
-yarn add -D @grpc.ts/cli
+yarn add -D @grpc.ts/cli @grpc.ts/core
 
 # or
 
-pnpm add -D @grpc.ts/cli
+pnpm add -D @grpc.ts/cli @grpc.ts/core
 ```
 
 # Usage
