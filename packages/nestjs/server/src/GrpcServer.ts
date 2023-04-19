@@ -1,4 +1,5 @@
 import { Logger } from '@nestjs/common';
+import { lastValueFrom, isObservable } from 'rxjs';
 import { createServers } from '@grpc.ts/server-commons';
 
 import type { Metadata, ServerUnaryCall } from '@grpc.ts/core';
@@ -81,8 +82,14 @@ export class GrpcServer {
       server.addUnaryHandler(
         serviceName,
         rpcName,
-        (request, metadata, call) => {
-          return handleMessage(request, metadata, call, pattern);
+        async (request, metadata, call) => {
+          const message = await handleMessage(request, metadata, call, pattern);
+
+          if (isObservable(message)) {
+            return lastValueFrom(message);
+          }
+
+          return message;
         },
         options,
       );

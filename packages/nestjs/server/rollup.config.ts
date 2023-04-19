@@ -7,7 +7,7 @@ import typescript from '@rollup/plugin-typescript';
 export default defineConfig({
   input: 'src/index.ts',
   plugins: [json(), resolve(), commonjs(), typescript()],
-  external: ['@nestjs/common', '@grpc.ts/core'],
+  external: ['@nestjs/common', '@grpc.ts/core', 'rxjs'],
   output: [
     {
       file: './lib/index.cjs',
