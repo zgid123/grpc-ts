@@ -1,10 +1,5 @@
 import { promisify } from 'util';
-import {
-  Server,
-  ServerCredentials,
-  type ServerUnaryCall,
-  type ServiceDefinition,
-} from '@grpc/grpc-js';
+import { Server, ServerCredentials, type ServerUnaryCall } from '@grpc/grpc-js';
 
 import type { UnaryCallback } from '@grpc/grpc-js/build/src/client';
 
@@ -60,10 +55,12 @@ export async function createServer({
       serviceMethodTracking[key] = true;
     }
 
-    const rpcNameUpper = rpcName[0].toUpperCase() + rpcName.substring(1);
+    const subName = rpcName.substring(1);
+    const rpcNameUpper = rpcName[0].toUpperCase() + subName;
+    const rpcNameLower = rpcName[0].toLowerCase() + subName;
 
     if (
-      !Object.prototype.hasOwnProperty.call(service, rpcName) &&
+      !Object.prototype.hasOwnProperty.call(service, rpcNameLower) &&
       !Object.prototype.hasOwnProperty.call(service, rpcNameUpper)
     ) {
       throw `${serviceName} service does not have ${rpcName} rpc method`;
@@ -77,10 +74,15 @@ export async function createServer({
       callback(null, result);
     };
 
-    server.addService(service as unknown as ServiceDefinition, {
-      [rpcName]: implFunc,
-      [rpcNameUpper]: implFunc,
-    });
+    const attrs = service[rpcNameLower] || service[rpcNameUpper];
+
+    server.register(
+      attrs.path,
+      implFunc,
+      attrs.responseSerialize,
+      attrs.requestDeserialize,
+      'unary',
+    );
   };
 
   return {
