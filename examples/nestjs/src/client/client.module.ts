@@ -14,11 +14,26 @@ import { ClientController } from './client.controller';
             protoPath: '../proto/example.proto',
           },
           {
+            protoPath: '../proto/example3.proto',
+          },
+        ],
+        packageDefinitionOptions: {
+          oneofs: true,
+          longs: String,
+          enums: String,
+          defaults: true,
+        },
+        options: {
+          keepaliveTimeMs: 5_000,
+        },
+      },
+      {
+        clientName: 'test',
+        url: 'localhost:3011',
+        package: [
+          {
             packageName: 'example2.v1',
             protoPath: '../proto/example2.proto',
-          },
-          {
-            protoPath: '../proto/example3.proto',
           },
         ],
         packageDefinitionOptions: {
