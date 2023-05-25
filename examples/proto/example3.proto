@@ -19,3 +19,8 @@ service ExampleService {
   rpc SendMessage(SendMessageRequest) returns (GetMessageResponse);
   rpc SendEmptyMessage(google.protobuf.Empty) returns (GetMessageResponse);
 }
+
+service AnotherService {
+  rpc SendMessage(SendMessageRequest) returns (GetMessageResponse);
+  rpc SendEmptyMessage(google.protobuf.Empty) returns (GetMessageResponse);
+}

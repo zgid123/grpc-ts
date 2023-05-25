@@ -45,6 +45,16 @@ export function camelize(str: string): string {
   });
 }
 
+export function toSnakeCase(str: string): string {
+  if (!str) {
+    return str;
+  }
+
+  return lowerFirstChar(str).replace(/[A-Z]/g, (match) => {
+    return `_${match.toLowerCase()}`;
+  });
+}
+
 export function lowerFirstChar(str: string): string {
   return str.charAt(0).toLowerCase() + str.slice(1);
 }

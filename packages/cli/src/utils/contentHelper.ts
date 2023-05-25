@@ -1,6 +1,7 @@
 import {
   combine,
   camelize,
+  toSnakeCase,
   lowerFirstChar,
   convertTypeScriptType,
   convertTypeScriptRequestType,
@@ -171,6 +172,8 @@ export function createExportServices(
     );
 
     content += `
+      export const ${toSnakeCase(serviceName).toUpperCase()} = '${serviceName}';
+
       export interface I${serviceName} extends ServiceClient {
         ${methodsAsString}
       }

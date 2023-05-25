@@ -1,6 +1,6 @@
 {
   "name": "@grpc.ts/cli",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "license": "MIT",
   "directories": {
     "lib": "lib"
@@ -39,14 +39,14 @@
   },
   "dependencies": {
     "@grpc.ts/core": "workspace:*",
-    "glob": "^10.2.1",
-    "prettier": "^2.8.7",
+    "glob": "^10.2.6",
+    "prettier": "^2.8.8",
     "protobufjs": "^7.2.3",
     "ts-node": "^10.9.1"
   },
   "devDependencies": {
     "@types/glob": "^8.1.0",
-    "@types/node": "^18.15.11",
+    "@types/node": "^20.2.3",
     "@types/prettier": "^2.7.2"
   }
 }

@@ -43,8 +43,8 @@
   },
   "devDependencies": {
     "@grpc.ts/client-commons": "workspace:*",
-    "@types/node": "^18.15.11",
-    "fastify": "^4.15.0",
+    "@types/node": "^20.2.3",
+    "fastify": "^4.17.0",
     "fastify-tsconfig": "^1.0.1"
   },
   "publishConfig": {

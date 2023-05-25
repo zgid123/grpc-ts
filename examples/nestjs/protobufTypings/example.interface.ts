@@ -16,6 +16,8 @@ export interface IGetMessageResponse {
   message: IMessage;
 }
 
+export const EXAMPLE_SERVICE = 'ExampleService';
+
 export interface IExampleService extends ServiceClient {
   SendMessage(
     params: ISendMessageRequest,
