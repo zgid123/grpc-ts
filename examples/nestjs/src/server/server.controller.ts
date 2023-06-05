@@ -6,7 +6,7 @@ import {
   dateToGrpcTimestamp,
   type Metadata,
   type ServiceError,
-  type UnaryCallback,
+  type TUnaryCallback,
   type ServerUnaryCall,
 } from '@grpc.ts/nestjs-server';
 
@@ -24,7 +24,7 @@ export class ServerController {
     request: ISendMessageRequest,
     metadata: Metadata,
     call: ServerUnaryCall<unknown, unknown>,
-    callback: UnaryCallback<unknown>,
+    callback: TUnaryCallback<unknown>,
   ): Promise<IGetMessageResponse | void> {
     console.log('request', request);
     console.log('metadata', metadata);

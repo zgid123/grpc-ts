@@ -20,7 +20,7 @@ export {
   type Timestamp,
   type StatusObject,
   type ServiceError,
-  type UnaryCallback,
+  type TUnaryCallback,
   type ServerUnaryCall,
 } from '@grpc.ts/core';
 

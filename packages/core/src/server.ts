@@ -1,12 +1,11 @@
 import { promisify } from 'util';
 import { Server, ServerCredentials, type ServerUnaryCall } from '@grpc/grpc-js';
 
-import type { UnaryCallback } from '@grpc/grpc-js/build/src/client';
-
 import { loadPackage, convertChannelOptions } from './internalUtils';
 
 import type {
   IServerProps,
+  TUnaryCallback,
   IServerWrapperProps,
   TAddUnaryHandlerFunc,
 } from './interface';
@@ -68,9 +67,21 @@ export async function createServer({
 
     const implFunc = async (
       call: ServerUnaryCall<any, any>,
-      callback: UnaryCallback<any>,
+      callback: TUnaryCallback<any>,
     ) => {
-      const result = await impl(call.request, call.metadata, call, callback);
+      let alreadyCalled = false;
+
+      const hofCallback: TUnaryCallback<any> = (err, value) => {
+        alreadyCalled = true;
+        callback(err, value);
+      };
+
+      const result = await impl(call.request, call.metadata, call, hofCallback);
+
+      if (alreadyCalled) {
+        return;
+      }
+
       callback(null, result);
     };
 

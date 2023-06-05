@@ -1,15 +1,21 @@
 import type { Options } from '@grpc/proto-loader';
-import type { UnaryCallback } from '@grpc/grpc-js/build/src/client';
 import type { ServiceClient } from '@grpc/grpc-js/build/src/make-client';
 import type {
   Server,
   Metadata,
+  ServiceError,
+  StatusObject,
   ServerUnaryCall,
   ServerCredentials,
   ChannelCredentials,
 } from '@grpc/grpc-js';
 
 export type TCompressionAlgorithms = 'identity' | 'deflate' | 'gzip';
+
+export type TUnaryCallback<ResponseType> = (
+  err: ServiceError | Partial<StatusObject> | null,
+  value?: ResponseType,
+) => void;
 
 export interface IChannelOptionsProps {
   serviceConfig?: string;
@@ -75,7 +81,7 @@ export type TUnaryHandlerFunc<TRequest = unknown, TResponse = unknown> = (
   request: TRequest,
   metadata: Metadata,
   call: ServerUnaryCall<TRequest, TResponse>,
-  callback: UnaryCallback<TResponse>,
+  callback: TUnaryCallback<TResponse>,
 ) => TResponse;
 
 export type TAddUnaryHandlerFunc<TRequest = unknown> = (
