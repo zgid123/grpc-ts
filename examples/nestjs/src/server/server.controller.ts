@@ -1,8 +1,12 @@
 import { Controller } from '@nestjs/common';
 import {
+  status,
+  StatusBuilder,
   GrpcUnaryMethod,
   dateToGrpcTimestamp,
   type Metadata,
+  type ServiceError,
+  type UnaryCallback,
   type ServerUnaryCall,
 } from '@grpc.ts/nestjs-server';
 
@@ -19,17 +23,20 @@ export class ServerController {
   public async sendMessage(
     request: ISendMessageRequest,
     metadata: Metadata,
-    _call: ServerUnaryCall<unknown, unknown>,
-  ): Promise<IGetMessageResponse> {
+    call: ServerUnaryCall<unknown, unknown>,
+    callback: UnaryCallback<unknown>,
+  ): Promise<IGetMessageResponse | void> {
     console.log('request', request);
     console.log('metadata', metadata);
+    console.log('call', call);
+    console.log('callback', callback);
 
-    return {
-      message: {
-        message: 'hola',
-        createdAt: dateToGrpcTimestamp(new Date()),
-      },
-    };
+    const error = new StatusBuilder()
+      .withCode(status.INVALID_ARGUMENT)
+      .withDetails('Invalid')
+      .build() as ServiceError;
+
+    return callback(error, null);
   }
 
   @GrpcUnaryMethod({

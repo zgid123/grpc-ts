@@ -5,12 +5,21 @@ const CONTEXT_TYPE = 6;
 const GRPC_CALL_TYPE = 9;
 const ROUTE_ARGS_METADATA = '__routeArguments__';
 const PATTERN_METADATA = 'microservices:pattern';
+const CUSTOM_ROUTE_ARGS_METADATA = '__customRouteArgs__';
 const PATTERN_HANDLER_METADATA = 'microservices:handler_type';
 
 const DEFAULT_GRPC_CALLBACK_METADATA = {
   [`${CONTEXT_TYPE}:1`]: { index: 1, data: undefined, pipes: [] },
   [`${GRPC_CALL_TYPE}:2`]: { index: 2, data: undefined, pipes: [] },
   [`${PAYLOAD_TYPE}:0`]: { index: 0, data: undefined, pipes: [] },
+  [`${CUSTOM_ROUTE_ARGS_METADATA}:3`]: {
+    index: 3,
+    data: undefined,
+    pipes: [],
+    factory: (_data: unknown, context: { args: unknown[] }) => {
+      return context.args[context.args.length - 1];
+    },
+  },
 };
 
 export function GrpcUnaryMethod({

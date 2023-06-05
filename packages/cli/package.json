@@ -46,7 +46,7 @@
   },
   "devDependencies": {
     "@types/glob": "^8.1.0",
-    "@types/node": "^20.2.3",
-    "@types/prettier": "^2.7.2"
+    "@types/node": "^20.2.5",
+    "@types/prettier": "^2.7.3"
   }
 }

@@ -12,10 +12,16 @@ import type { TGetServerFunc } from './interface';
 export {
   createServer,
   GrpcTimestamp,
+  StatusBuilder,
   createMetadata,
   createSecureContext,
   dateToGrpcTimestamp,
   grpcTimestampToDate,
+  type Timestamp,
+  type StatusObject,
+  type ServiceError,
+  type UnaryCallback,
+  type ServerUnaryCall,
 } from '@grpc.ts/core';
 
 let grpcServerList: IGrpcServerListProps = {};

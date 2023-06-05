@@ -1,4 +1,5 @@
 import type { Options } from '@grpc/proto-loader';
+import type { UnaryCallback } from '@grpc/grpc-js/build/src/client';
 import type { ServiceClient } from '@grpc/grpc-js/build/src/make-client';
 import type {
   Server,
@@ -74,6 +75,7 @@ export type TUnaryHandlerFunc<TRequest = unknown, TResponse = unknown> = (
   request: TRequest,
   metadata: Metadata,
   call: ServerUnaryCall<TRequest, TResponse>,
+  callback: UnaryCallback<TResponse>,
 ) => TResponse;
 
 export type TAddUnaryHandlerFunc<TRequest = unknown> = (

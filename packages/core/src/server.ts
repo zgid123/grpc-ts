@@ -70,7 +70,7 @@ export async function createServer({
       call: ServerUnaryCall<any, any>,
       callback: UnaryCallback<any>,
     ) => {
-      const result = await impl(call.request, call.metadata, call);
+      const result = await impl(call.request, call.metadata, call, callback);
       callback(null, result);
     };
 

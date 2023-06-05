@@ -2,7 +2,7 @@ import { Logger } from '@nestjs/common';
 import { lastValueFrom, isObservable } from 'rxjs';
 import { createServers } from '@grpc.ts/server-commons';
 
-import type { Metadata, ServerUnaryCall } from '@grpc.ts/core';
+import type { Metadata, ServerUnaryCall, UnaryCallback } from '@grpc.ts/core';
 
 import type {
   IGrpcServerProps,
@@ -24,6 +24,7 @@ interface IMessageHandlerProps<TData = unknown, TResult = unknown> {
     data: TData,
     metadata: Metadata,
     call: ServerUnaryCall<unknown, unknown>,
+    callback: UnaryCallback<unknown>,
   ): Promise<TResult>;
 }
 
@@ -82,8 +83,14 @@ export class GrpcServer {
       server.addUnaryHandler(
         serviceName,
         rpcName,
-        async (request, metadata, call) => {
-          const message = await handleMessage(request, metadata, call, pattern);
+        async (request, metadata, call, callback) => {
+          const message = await handleMessage(
+            request,
+            metadata,
+            call,
+            pattern,
+            callback,
+          );
 
           if (isObservable(message)) {
             return lastValueFrom(message);
@@ -109,6 +116,7 @@ export class GrpcServer {
     metadata: Metadata,
     call: ServerUnaryCall<unknown, unknown>,
     pattern: ISubscribeParams,
+    callback: UnaryCallback<unknown>,
   ): Promise<unknown> {
     const patternAsString = normalizePattern(pattern);
     const handler = this.#messageHandlers.get(patternAsString);
@@ -119,7 +127,7 @@ export class GrpcServer {
       );
     }
 
-    return handler(request, metadata, call);
+    return handler(request, metadata, call, callback);
   }
 
   async #initServers(options: TOptions): Promise<void> {
