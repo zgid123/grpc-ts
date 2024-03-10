@@ -2,6 +2,7 @@ export {
   Metadata,
   GrpcTimestamp,
   createMetadata,
+  ChannelCredentials,
   createSecureContext,
   grpcTimestampToDate,
   dateToGrpcTimestamp,
