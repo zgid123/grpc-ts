@@ -13,6 +13,7 @@ export {
   createClient,
   GrpcTimestamp,
   createMetadata,
+  ChannelCredentials,
   createSecureContext,
   dateToGrpcTimestamp,
   grpcTimestampToDate,
