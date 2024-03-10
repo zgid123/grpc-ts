@@ -4,6 +4,7 @@ export {
   StatusBuilder,
   GrpcTimestamp,
   createMetadata,
+  ServerCredentials,
   createSecureContext,
   grpcTimestampToDate,
   dateToGrpcTimestamp,

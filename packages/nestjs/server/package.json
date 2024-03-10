@@ -1,6 +1,6 @@
 {
   "name": "@grpc.ts/nestjs-server",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "license": "MIT",
   "directories": {
     "lib": "lib"
