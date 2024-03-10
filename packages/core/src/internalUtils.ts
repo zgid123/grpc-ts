@@ -29,11 +29,14 @@ export function convertChannelOptions({
   defaultCompressionAlgorithm,
   ...options
 }: IChannelOptionsProps): ChannelOptions {
-  const opts = Object.entries(options).reduce((result, [key, value]) => {
-    result[`grpc.${toSnakeCase(key)}`] = value;
+  const opts = Object.entries(options).reduce(
+    (result, [key, value]) => {
+      result[`grpc.${toSnakeCase(key)}`] = value;
 
-    return result;
-  }, {} as Record<string, string | number | TCompressionAlgorithms>);
+      return result;
+    },
+    {} as Record<string, string | number | TCompressionAlgorithms>,
+  );
 
   return {
     ...opts,

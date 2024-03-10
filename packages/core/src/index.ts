@@ -4,6 +4,8 @@ export {
   Metadata,
   credentials,
   StatusBuilder,
+  ServerCredentials,
+  ChannelCredentials,
   type ServiceError,
   type StatusObject,
   type ServerUnaryCall,
