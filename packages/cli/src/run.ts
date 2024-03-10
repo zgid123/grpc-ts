@@ -96,7 +96,7 @@ async function generate() {
 
       writeFile(
         `${output}/${fileName}.interface.ts`,
-        format(fileContent, {
+        await format(fileContent, {
           singleQuote: true,
           trailingComma: 'all',
           jsxSingleQuote: true,
