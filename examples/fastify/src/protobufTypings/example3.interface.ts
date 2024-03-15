@@ -15,7 +15,30 @@ export interface IGetMessageResponse {
   message: IMessage;
 }
 
+export const EXAMPLE_SERVICE = 'ExampleService';
+
 export interface IExampleService extends ServiceClient {
+  SendMessage(
+    params: ISendMessageRequest,
+    metadata?: Metadata,
+  ): Promise<IGetMessageResponse>;
+  sendMessage(
+    params: ISendMessageRequest,
+    metadata?: Metadata,
+  ): Promise<IGetMessageResponse>;
+  SendEmptyMessage(
+    params: {},
+    metadata?: Metadata,
+  ): Promise<IGetMessageResponse>;
+  sendEmptyMessage(
+    params: {},
+    metadata?: Metadata,
+  ): Promise<IGetMessageResponse>;
+}
+
+export const ANOTHER_SERVICE = 'AnotherService';
+
+export interface IAnotherService extends ServiceClient {
   SendMessage(
     params: ISendMessageRequest,
     metadata?: Metadata,

@@ -4,6 +4,11 @@ import "google/protobuf/timestamp.proto";
 
 package example.v1;
 
+enum MessageEnum {
+  unknown = 0;
+  info = 1;
+}
+
 message Message {
   string message = 1;
   google.protobuf.Timestamp created_at = 2;

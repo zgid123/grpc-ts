@@ -76,23 +76,28 @@ export function createExportEnums(
     const [enumName, values] = enu;
     cachedEnums[enumName] = true;
 
-    const valuesAsStrings = values.reduce<[string, string]>(
+    const valuesAsStrings = values.reduce<[string, string, string]>(
       (result, vals) => {
         Object.entries(vals).forEach(([k, v]) => {
           const camelizedKey = camelize(k);
 
           result[0] += `${camelizedKey}: ${v},\n`;
           result[1] += `| '${camelizedKey}'\n`;
+          result[2] += `${v}: '${camelizedKey}',\n`;
         });
 
         return result;
       },
-      ['', ''],
+      ['', '', ''],
     );
 
     content += `
       export const ${lowerFirstChar(enumName)} = {
         ${valuesAsStrings[0]}
+      };
+
+      export const ${lowerFirstChar(enumName)}Mapper = {
+        ${valuesAsStrings[2]}
       };
 
       export type T${enumName} = ${valuesAsStrings[1]};
