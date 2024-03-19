@@ -1,4 +1,5 @@
 export {
+  status,
   Metadata,
   GrpcTimestamp,
   createMetadata,
