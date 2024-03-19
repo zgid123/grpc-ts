@@ -11,3 +11,4 @@ export {
 
 export * from './decorators';
 export * from './GrpcClient';
+export { normalizePattern as grpcClientToken } from './utils';
