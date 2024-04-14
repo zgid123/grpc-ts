@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+
+package nested.v1;
+
+message Nested {
+  string nested = 1;
+  google.protobuf.Timestamp created_at = 2;
+}

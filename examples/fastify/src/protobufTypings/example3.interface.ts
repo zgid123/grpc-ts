@@ -1,9 +1,12 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import type { Metadata, GrpcTimestamp, ServiceClient } from '@grpc.ts/core';
 
+import type { INested as INestedV1Nested } from './nested_example.interface';
+
 export interface IMessage {
   message: string;
   createdAt: GrpcTimestamp;
+  nested: INestedV1Nested;
 }
 
 export interface ISendMessageRequest {

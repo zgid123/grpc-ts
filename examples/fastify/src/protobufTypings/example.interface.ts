@@ -1,5 +1,7 @@
 import type { Metadata, GrpcTimestamp, ServiceClient } from '@grpc.ts/core';
 
+import type { INested as INestedV1Nested } from './nested_example.interface';
+
 export const PACKAGE_NAME = 'example.v1';
 
 export const messageEnum = {
@@ -17,6 +19,7 @@ export type TMessageEnum = 'unknown' | 'info';
 export interface IMessage {
   message: string;
   createdAt: GrpcTimestamp;
+  nested: INestedV1Nested;
 }
 
 export interface ISendMessageRequest {

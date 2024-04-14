@@ -6,10 +6,6 @@ export interface IConfigProps {
   paths?: string | string[];
 }
 
-export interface IOptionsProps {
-  external?: string[];
-}
-
 export interface IMessageProps {
   name: string;
   type: string;
@@ -39,6 +35,11 @@ export interface INamespaceDataProps {
 
 export type TParseNamespaceReturn = [string, INamespaceDataProps];
 
-export interface ICachedEnumsProps {
-  [key: string]: boolean;
+export interface IProtoDataProps {
+  filePath: string;
+  packageName: string;
+  noDependency: boolean;
+  data: INamespaceDataProps;
+  ownedMessages: Record<string, string>;
+  dependencies: Record<string, INamespaceDataProps>;
 }

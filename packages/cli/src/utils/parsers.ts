@@ -2,7 +2,7 @@ import type { IEnum, IService, INamespace, IType } from 'protobufjs';
 
 import type {
   TEnum,
-  IOptionsProps,
+  IConfigProps,
   IMessageProps,
   IServiceProps,
   TNamespaceEnum,
@@ -16,7 +16,7 @@ type TNamespace = Required<INamespace>['nested'];
 
 export function parse(
   namespace: TNamespace,
-  options: IOptionsProps = {},
+  options: IConfigProps = {},
 ): TParseNamespaceReturn[] {
   const { external = [] } = options;
   let result: TParseNamespaceReturn[] = [];
