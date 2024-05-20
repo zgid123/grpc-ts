@@ -38,7 +38,7 @@
   },
   "dependencies": {
     "@grpc.ts/core": "workspace:*",
-    "@nestjs/common": "^10.3.3"
+    "@nestjs/common": "^10.3.8"
   },
   "devDependencies": {
     "@grpc.ts/client-commons": "workspace:*"
