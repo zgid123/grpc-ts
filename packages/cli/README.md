@@ -41,6 +41,8 @@ Default output will be `protobufTypings`. Change `output` option to specify the 
 
 # TODO
 
-[ ] Support generate typing as monorepo project
+[ x ] Support generate typing as monorepo project
 
-[ ] Rewrite the parser in Rust
+[ ] Support `rollup` engine for monorepo config
+
+[ ] Read prettier config from project

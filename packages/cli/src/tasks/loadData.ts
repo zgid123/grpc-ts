@@ -7,13 +7,13 @@ import { parse } from '../utils/parsers';
 import { group, wrapArray } from '../utils/arrayUtils';
 
 import type {
-  IConfigProps,
+  TConfigParams,
   IProtoDataProps,
   TParseNamespaceReturn,
 } from '../interface';
 
 export async function loadData(
-  config: Required<IConfigProps>,
+  config: TConfigParams,
 ): Promise<Array<IProtoDataProps | null>> {
   const { paths } = config;
 

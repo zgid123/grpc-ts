@@ -15,3 +15,19 @@ export interface ICachedTypesProps {
     messageName: string;
   };
 }
+
+export interface IGeneratedFilesProps {
+  filename: string;
+  packageName: string;
+}
+
+export interface IPackageExportsProps {
+  main?: string;
+  types?: string;
+  exports?: Record<string, string>;
+  scripts?: Record<string, string>;
+  devDependencies?: Record<string, string>;
+  typesVersions?: {
+    '*': Record<string, string[]>;
+  };
+}

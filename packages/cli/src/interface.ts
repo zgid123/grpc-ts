@@ -1,9 +1,23 @@
 import type { IEnum } from 'protobufjs';
+import type { Options as TsupOptions } from 'tsup';
+
+interface ITsupConfigProps {
+  engine: 'tsup';
+  options?: TsupOptions;
+}
+
+export interface IMonorepoOutputProps {
+  packageName: string;
+  workspacePath: string;
+  multiEntries?: boolean;
+  compiler?: ITsupConfigProps;
+}
 
 export interface IConfigProps {
   output?: string;
   external?: string[];
   paths?: string | string[];
+  monorepo?: IMonorepoOutputProps;
 }
 
 export interface IMessageProps {
@@ -34,6 +48,9 @@ export interface INamespaceDataProps {
 }
 
 export type TParseNamespaceReturn = [string, INamespaceDataProps];
+
+export type TConfigParams = Omit<Required<IConfigProps>, 'monorepo'> &
+  Pick<IConfigProps, 'monorepo'>;
 
 export interface IProtoDataProps {
   filePath: string;

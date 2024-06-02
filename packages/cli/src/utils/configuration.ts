@@ -1,9 +1,9 @@
 import { register } from 'ts-node';
 import { cwd } from 'node:process';
 
-import type { IConfigProps } from '../interface';
+import type { IConfigProps, TConfigParams } from '../interface';
 
-export async function loadConfig(): Promise<Required<IConfigProps>> {
+export async function loadConfig(): Promise<TConfigParams> {
   const service = register({
     compilerOptions: {
       module: 'CommonJS',
@@ -29,6 +29,7 @@ export async function loadConfig(): Promise<Required<IConfigProps>> {
 
   return {
     paths: data.paths || [],
+    monorepo: data.monorepo,
     output: data.output || 'protobufTypings',
     external: data.external || ['google.protobuf'],
   };
