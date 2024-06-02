@@ -49,6 +49,12 @@
 
 ## @grpc.ts/cli
 
+### v1.2.0
+
+- support generate files to a mono package inside monorepo project
+
+**Full Changelog**: https://github.com/zgid123/grpc-ts/compare/%40grpc.ts/cli%401.1.0...%40grpc.ts/cli%401.2.0
+
 ### v1.1.0
 
 - rework logic to support nested packages
