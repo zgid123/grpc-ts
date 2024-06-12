@@ -36,7 +36,7 @@ async function createTsupConfig(
   let entry: string[] = generatedFiles.map(({ filename }) => filename);
 
   if (multiEntries) {
-    entry = entry.map((filename) => `src/${filename}`);
+    entry = entry.map((filename) => `src/${filename}.ts`);
   } else {
     entry = ['src/index.ts'];
   }
