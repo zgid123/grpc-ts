@@ -21,6 +21,10 @@ export function createImports({
   messageDependentTypes,
   serviceDependentTypes,
 }: ICreateImportsParams) {
+  if (!hasService && !hasGrpcTimestamp && !hasService) {
+    return '';
+  }
+
   const corePackage = '@grpc.ts/core';
   const dependentTypes = mergeObj(messageDependentTypes, serviceDependentTypes);
 

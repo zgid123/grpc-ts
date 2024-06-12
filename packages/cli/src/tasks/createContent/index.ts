@@ -93,7 +93,7 @@ export async function createContent(
           };
         });
 
-        const fileName = combine(
+        const fileNameWithoutExt = combine(
           {
             joinWith: '.',
           },
@@ -101,7 +101,15 @@ export async function createContent(
             filePath.lastIndexOf('/') + 1,
             filePath.length - '.proto'.length,
           ),
-          'interface.ts',
+          'interface',
+        );
+
+        const fileName = combine(
+          {
+            joinWith: '.',
+          },
+          fileNameWithoutExt,
+          'ts',
         );
 
         cachedPackageOutputs[packageName] = fileName;
@@ -112,7 +120,7 @@ export async function createContent(
 
         generatedFilenames.push({
           packageName,
-          filename: fileName,
+          filename: fileNameWithoutExt,
         });
 
         writeFile(interfaceFilename, await format(fileContent), {
@@ -146,7 +154,7 @@ export async function createContent(
           `./${filename}.${hasEngine ? 'js' : 'ts'}`;
 
         result.typesVersions[`${packageName}`] = [
-          `./${filename}.${hasEngine ? '.d.ts' : '.ts'}`,
+          `./${filename}.${hasEngine ? 'd.ts' : 'ts'}`,
         ];
 
         return result;

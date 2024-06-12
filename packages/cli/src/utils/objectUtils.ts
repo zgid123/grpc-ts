@@ -5,8 +5,10 @@ export function mergeObj(source: any, target: any): any {
     if (sourceVal) {
       if (Array.isArray(sourceVal) && Array.isArray(value)) {
         source[key].push(...value);
-      } else {
+      } else if (typeof sourceVal === 'object') {
         Object.assign(source[key], value);
+      } else {
+        source[key] = value;
       }
     } else {
       source[key] = value;
