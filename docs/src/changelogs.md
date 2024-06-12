@@ -49,6 +49,14 @@
 
 ## @grpc.ts/cli
 
+### v1.2.1
+
+- do not create import type from core package if no data
+- fix error when value is not object for mergeObj
+- use filename without extensions when creating exports for package.json
+
+**Full Changelog**: https://github.com/zgid123/grpc-ts/compare/@grpc.ts/cli@1.2.0...@grpc.ts/cli@1.2.1
+
 ### v1.2.0
 
 - support generate files to a mono package inside monorepo project
