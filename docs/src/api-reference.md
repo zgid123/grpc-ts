@@ -49,6 +49,14 @@ const config: IConfigProps = {
 export default config;
 ```
 
+### buildDir
+
+- Type: `string | undefined`
+- Default: `'dist'`
+- Required: `false`
+
+Build folder where stores the built files after running `tsc`, `tsup`, ... If `engine` of `monorepo` config is set, it will use `outDir` of the engine instead.
+
 ### monorepo
 
 - Type: `IMonorepoOutputProps`

@@ -49,6 +49,12 @@
 
 ## @grpc.ts/cli
 
+### v1.2.3
+
+- pass buildDir to exports of package.json
+
+**Full Changelog**: https://github.com/zgid123/grpc-ts/compare/@grpc.ts/cli@1.2.2...@grpc.ts/cli@1.2.3
+
 ### v1.2.2
 
 - append ts extension for entry of tsup
