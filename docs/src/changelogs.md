@@ -49,6 +49,12 @@
 
 ## @grpc.ts/cli
 
+### v1.2.2
+
+- append ts extension for entry of tsup
+
+**Full Changelog**: https://github.com/zgid123/grpc-ts/compare/@grpc.ts/cli@1.2.1...@grpc.ts/cli@1.2.2
+
 ### v1.2.1
 
 - do not create import type from core package if no data
