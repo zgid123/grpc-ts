@@ -15,6 +15,7 @@ export interface IMonorepoOutputProps {
 
 export interface IConfigProps {
   output?: string;
+  buildDir?: string;
   external?: string[];
   paths?: string | string[];
   monorepo?: IMonorepoOutputProps;
@@ -49,8 +50,11 @@ export interface INamespaceDataProps {
 
 export type TParseNamespaceReturn = [string, INamespaceDataProps];
 
-export type TConfigParams = Omit<Required<IConfigProps>, 'monorepo'> &
-  Pick<IConfigProps, 'monorepo'>;
+export type TConfigParams = Omit<
+  Required<IConfigProps>,
+  'monorepo' | 'buildDir'
+> &
+  Pick<IConfigProps, 'monorepo' | 'buildDir'>;
 
 export interface IProtoDataProps {
   filePath: string;

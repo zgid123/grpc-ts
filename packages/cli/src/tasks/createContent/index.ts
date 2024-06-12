@@ -25,7 +25,7 @@ export async function createContent(
   groupedData: IProtoDataProps[][],
   config: TConfigParams,
 ): Promise<void> {
-  const { output, monorepo } = config;
+  const { output, buildDir = 'dist', monorepo } = config;
   const cachedTypes: ICachedTypesProps = {};
   const cachedPackageOutputs: ICachedPackageOutputsProps = {};
   let outputDir = output;
@@ -134,8 +134,13 @@ export async function createContent(
 
   if (monorepo) {
     const { multiEntries, compiler } = monorepo;
-    const { engine } = compiler || {};
+    const { engine, options } = compiler || {};
     const hasEngine = !!engine;
+    let buildDirectory = buildDir;
+
+    if (options?.outDir) {
+      buildDirectory = options.outDir;
+    }
 
     await createCompilerConfig({
       config: monorepo,
@@ -151,10 +156,10 @@ export async function createContent(
         result.content.push(`export * from './${filename}';`);
 
         result.exports[`./${packageName}`] =
-          `./${filename}.${hasEngine ? 'js' : 'ts'}`;
+          `./${buildDirectory}/${filename}.${hasEngine ? 'js' : 'ts'}`;
 
         result.typesVersions[`${packageName}`] = [
-          `./${filename}.${hasEngine ? 'd.ts' : 'ts'}`,
+          `./${buildDirectory}/${filename}.${hasEngine ? 'd.ts' : 'ts'}`,
         ];
 
         return result;
