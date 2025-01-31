@@ -39,13 +39,13 @@
   },
   "dependencies": {
     "@grpc.ts/core": "workspace:*",
-    "fastify-plugin": "^4.5.1"
+    "fastify-plugin": "^5.0.1"
   },
   "devDependencies": {
     "@grpc.ts/client-commons": "workspace:*",
-    "@types/node": "^20.12.12",
-    "fastify": "^4.27.0",
-    "fastify-tsconfig": "^2.0.0"
+    "@types/node": "^22.12.0",
+    "fastify": "^5.2.1",
+    "fastify-tsconfig": "^3.0.0"
   },
   "publishConfig": {
     "access": "public"
