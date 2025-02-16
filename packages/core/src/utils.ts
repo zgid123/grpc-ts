@@ -29,11 +29,7 @@ export function dateToGrpcTimestamp(
   const { nanos, seconds } = Timestamp.fromDate(data).toObject();
   const timestamp = new GrpcTimestamp();
   timestamp.nanos = nanos;
-  timestamp.seconds = {
-    height: 0,
-    low: seconds,
-    unsigned: false,
-  };
+  timestamp.seconds = seconds;
 
   return timestamp;
 }
@@ -42,10 +38,10 @@ export function grpcTimestampToDate(data: GrpcTimestamp): Date {
   let low: number;
   const { nanos, seconds } = data;
 
-  if (typeof seconds === 'string' || typeof seconds === 'number') {
+  if (typeof seconds === 'string') {
     low = parseInt(seconds, 10);
   } else {
-    low = (seconds || {}).low;
+    low = seconds;
   }
 
   const timestamp = new Timestamp();

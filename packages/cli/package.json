@@ -40,13 +40,13 @@
   "dependencies": {
     "@grpc.ts/core": "workspace:*",
     "glob": "^11.0.1",
-    "prettier": "^3.4.2",
+    "prettier": "^3.5.1",
     "protobufjs": "^7.4.0",
     "ts-node": "^10.9.2"
   },
   "devDependencies": {
     "@types/glob": "^8.1.0",
-    "@types/node": "^22.12.0",
+    "@types/node": "^22.13.4",
     "@types/prettier": "^3.0.0",
     "tsup": "^8.3.6"
   }

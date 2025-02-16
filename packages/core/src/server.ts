@@ -29,8 +29,6 @@ export async function createServer({
 
   await bindAsync(url, creds || ServerCredentials.createInsecure());
 
-  server.start();
-
   const addUnaryHandler: TAddUnaryHandlerFunc = (
     serviceName,
     rpcName,

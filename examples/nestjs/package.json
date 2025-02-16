@@ -14,10 +14,10 @@
   "dependencies": {
     "@grpc.ts/nestjs-client": "workspace:*",
     "@grpc.ts/nestjs-server": "workspace:*",
-    "@nestjs/common": "^11.0.7",
-    "@nestjs/core": "^11.0.7",
-    "@nestjs/microservices": "^11.0.7",
-    "@nestjs/platform-express": "^11.0.7",
+    "@nestjs/common": "^11.0.9",
+    "@nestjs/core": "^11.0.9",
+    "@nestjs/microservices": "^11.0.9",
+    "@nestjs/platform-express": "^11.0.9",
     "detect-port": "^2.1.0",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.1"
@@ -29,7 +29,7 @@
     "@nestjs/schematics": "^11.0.0",
     "@types/detect-port": "^1.3.5",
     "@types/express": "^5.0.0",
-    "@types/node": "22.12.0",
+    "@types/node": "22.13.4",
     "source-map-support": "^0.5.21",
     "ts-loader": "^9.5.2",
     "ts-node": "^10.9.2",

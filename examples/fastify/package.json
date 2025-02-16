@@ -13,7 +13,7 @@
     "@grpc.ts/fastify-server": "workspace:*",
     "detect-port": "^2.1.0",
     "fastify": "^5.2.1",
-    "vite": "^6.0.11"
+    "vite": "^6.1.0"
   },
   "devDependencies": {
     "@fastify/vite": "^7.0.1",
@@ -21,6 +21,6 @@
     "@grpc.ts/core": "workspace:^",
     "@types/detect-port": "^1.3.5",
     "fastify-cli": "^7.3.0",
-    "vite-node": "^3.0.4"
+    "vite-node": "^3.0.5"
   }
 }

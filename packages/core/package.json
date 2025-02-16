@@ -1,6 +1,6 @@
 {
   "name": "@grpc.ts/core",
-  "version": "1.1.5",
+  "version": "1.1.6",
   "license": "MIT",
   "directories": {
     "lib": "lib"
@@ -35,7 +35,7 @@
     "build": "rollup --config rollup.config.ts --configPlugin typescript"
   },
   "dependencies": {
-    "@grpc/grpc-js": "^1.12.5",
+    "@grpc/grpc-js": "^1.12.6",
     "@grpc/proto-loader": "^0.7.13",
     "google-protobuf": "^3.21.4"
   },

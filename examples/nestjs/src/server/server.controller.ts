@@ -55,6 +55,10 @@ export class ServerController {
       message: {
         message: 'hola',
         createdAt: dateToGrpcTimestamp(new Date()),
+        nested: {
+          nested: 'hola',
+          createdAt: dateToGrpcTimestamp(new Date()),
+        },
       },
     };
   }
@@ -79,6 +83,10 @@ export class ServerController {
       message: {
         message: 'hola',
         createdAt: dateToGrpcTimestamp(new Date()),
+        nested: {
+          nested: 'hola',
+          createdAt: dateToGrpcTimestamp(new Date()),
+        },
       },
     };
   }
@@ -104,6 +112,10 @@ export class ServerController {
       message: {
         message: 'hola',
         createdAt: dateToGrpcTimestamp(new Date()),
+        nested: {
+          nested: 'hola',
+          createdAt: dateToGrpcTimestamp(new Date()),
+        },
       },
     };
   }
